@@ -10,7 +10,7 @@ public class AnnonsDatabase {
 
     private static AnnonsDatabase instance; // variabelnamnet instance enligt singelton? kan endast användas i denna klass? Vi vill att endast ett objekt av denna typ existerar.
 
-    private List<Annons> annons = new ArrayList<>(); // lista för att spara annonserna i när programmet körs.
+    private List<Annons> annonser = new ArrayList<>(); // lista för att spara annonserna i när programmet körs.
 
     // privat konstruktor
     private AnnonsDatabase (){}
@@ -26,12 +26,14 @@ public class AnnonsDatabase {
     }
 
     // metod för att lägga till annons obj i listan.
-    public void addAnnons (Annons a) { // kommer inte på något bra namn, vill skilja på listans namn och pojo
-        annons.add(a);
+    public void addAnnons (Annons annons) {
+        annonser.add(annons);
     }
 
     //metod som returnerar hela annons listan
     public List<Annons> getAnnons(){
-        return annons;
+        return annonser;
     }
+
+    // kunna ta bort en annons, ska metoden definieras i denna klass? identifierra med id vilken som ska tas bort?
 }
