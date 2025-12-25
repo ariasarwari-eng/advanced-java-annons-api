@@ -19,19 +19,22 @@ public class App {
         Scanner input = new Scanner(System.in);
         int val = input.nextInt();
 
-        switch (val){
-            case 1.
+        AnnonsHttpClient client = new AnnonsHttpClient();
 
-                break;
-            case 2.
-                break;
-            case 3.
-                break;
-            case 4.
-                break;
-            case 5.
-                break;
-            default -> System.out.println("Ogilitgt val");
+        switch (val){
+            case 1 :
+                String allaAnnonser= client.listaAllaAnnonser();
+                System.out.println(allaAnnonser);
+            break;
+            case 2 :
+                System.out.println("Ange annonsens id: ");
+                int id = input.nextInt();
+
+                String enAnnons = client.visaAnnons(id);
+                System.out.println(enAnnons);
+            break;
+
+            default : System.out.println("Ogilitgt val");
         }
 
 

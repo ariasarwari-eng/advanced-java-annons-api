@@ -18,7 +18,7 @@ public class AnnonsController {
     }
 
     @GetMapping("{id}") // get en specifik annons genom identifiering av id. Skicka in id via URL
-    public Annons getAnnons (@PathVariable int id){ // (tar värdet från URL här)
+    public Annons getAnnons (@PathVariable Integer id){ // (tar värdet från URL här)
         for (Annons annons : AnnonsDatabase.getInstance().getAnnons()){
 
             if (annons.getId() == id){
@@ -34,7 +34,7 @@ public class AnnonsController {
     }
 
     @PutMapping ("{id}") // identifiera med id för att kunna uppdatera detta objekt
-    public void updateAnnons (@RequestBody Annons annons, @PathVariable int id) { // req hämtar ny data från body, path hämtar id från url
+    public void updateAnnons (@RequestBody Annons annons, @PathVariable Integer id) { // req hämtar ny data från body, path hämtar id från url
         List <Annons> annonser = AnnonsDatabase.getInstance().getAnnons(); // hämtar hela listan fårn databasen med samma instans
 
         for (int i = 0 ; i< annonser.size() ; i++){ // loopar igenom listan mha index
@@ -46,7 +46,7 @@ public class AnnonsController {
     }
 
     @DeleteMapping("{id}")
-    public void deleteAnnons (@PathVariable int id){ // tar emot id via URL
+    public void deleteAnnons (@PathVariable Integer id){ // tar emot id via URL
         List<Annons> annonser = AnnonsDatabase.getInstance().getAnnons(); // hämtar listan
 
         for (Annons a : annonser) { // loopar igenom listan
