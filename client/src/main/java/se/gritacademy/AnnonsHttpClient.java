@@ -64,9 +64,19 @@ public class AnnonsHttpClient {
     public String skapaAnnons(int id, String topic, String description, int price){
 
         try{
-            // skapa body? här och ta in info från tangentbborf i main?
+            // skapa body? här och ta in info från tangentbborf i main? måste ha samma format som i postman?
+            String nyAnnons = "{"
+                    +"\"id\":" + id +","
+                    +"\"topic\":" + topic+","
+                    +"\"description\":" + description + ","
+                    +"\"price\":" + price
+                    +"}";
 
             // 2. request, byt ut Get moy post?
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("http://localhost:8080/api/annons"))
+                    .POST() // skicka data här
+                    .build();
 
             //3. respons, vanlig som tidigare?
 
