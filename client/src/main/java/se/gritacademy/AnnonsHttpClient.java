@@ -1,6 +1,8 @@
 package se.gritacademy;
 
 
+import se.gritacademy.server.model.Annons;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -72,19 +74,35 @@ public class AnnonsHttpClient {
                     +"\"price\":" + price
                     +"}";
 
+           /* Annons nyAnnons = new Annons(id, topic, description, price);
+
+            String nyAnnons =*/
+
             // 2. request, byt ut Get moy post?
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("http://localhost:8080/api/annons"))
-                    .POST() // skicka data här
+                    .POST(HttpRequest.BodyPublishers.ofString(nyAnnons)) // skicka data här, nyAnnon. HttpRequest.BodyPublishers, istället för handlers,klassen skapar innehållet, body
                     .build();
 
             //3. respons, vanlig som tidigare?
-
+            HttpResponse <String> response = client.send(
+                    request,
+                    HttpResponse.BodyHandlers.ofString()
+            );
+            // få med status kod? 200 osv..
+            return "Annons skapad";
             // var skickar jag med all info till annonsen?
         } catch (Exception e) {
             e.printStackTrace();
             return "Fel vid skapa annons.";
         }
+    }
+
+    public String changePrice (int id, int price){
+
+        // vanlig get request
+
+
     }
 
 }

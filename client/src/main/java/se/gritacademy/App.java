@@ -25,14 +25,36 @@ public class App {
             case 1 :
                 String allaAnnonser= client.listaAllaAnnonser();
                 System.out.println(allaAnnonser);
-            break;
+                break;
             case 2 :
                 System.out.println("Ange annonsens id: ");
                 int id = input.nextInt();
 
                 String enAnnons = client.visaAnnons(id);
                 System.out.println(enAnnons);
-            break;
+                break;
+            case 3:
+                System.out.println("Ange id: ");
+                int newId = input.nextInt();
+
+                System.out.println("Ämne/kategori: ");
+                String topic = input.nextLine();
+
+                System.out.println("Beskrvning av produkt: ");
+                String description = input.nextLine();
+
+                System.out.println("Pris: ");
+                int price = input.nextInt();
+
+                String skickaData = client.skapaAnnons(newId, topic, description, price);
+                System.out.println(skickaData);
+                break;
+            case 4:
+                System.out.println("Ange id på den annons vars pris du vill ändra: ");
+                int idPriceChange = input.nextInt();
+
+                System.out.println("Ange det nya priset: ");
+                int newPrice = input.nextInt();
 
             default : System.out.println("Ogilitgt val");
         }
