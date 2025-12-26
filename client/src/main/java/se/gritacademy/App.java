@@ -55,7 +55,10 @@ public class App {
 
                 System.out.println("Ange det nya priset: ");
                 int newPrice = input.nextInt();
-
+                break;
+            case 5:
+                System.out.println("Ange id på annonsen du vill radera: ");
+                int idRadera = input.nextInt();
             default : System.out.println("Ogilitgt val");
         }
 

@@ -6,6 +6,7 @@ Här kan du dokumentera ditt projekt.
 - meny val, switch case. Var? -> main? börjar med det
 - saknar säljare!, måste läggas till
 - försökt koda metod för val 4 där man ska kunna ändra priset, 
+- stauskoder? måste läggas till?
 
 - Projektets mål och funktionalitet
 - Instruktioner för hur man startar servern och klientapplikationen
