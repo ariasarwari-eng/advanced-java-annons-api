@@ -36,7 +36,15 @@ public class AnnonsHttpClient {
                     request,
                     HttpResponse.BodyHandlers.ofString()
             );
-            return response.body();
+
+            //
+            if (response.statusCode()==200){
+                return response.body();
+            } else if (response.statusCode()==404) {
+                return "Kunde ej hitta listan";
+            }else {
+                return "Ett fel inträffade. Statuskod: "+ response.statusCode();
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,7 +65,13 @@ public class AnnonsHttpClient {
                     request,
                     HttpResponse.BodyHandlers.ofString()
             );
-            return response.body();
+            if(response.statusCode()==200){
+                return response.body();
+            } else if (response.statusCode()==404) {
+                return "Annons kunde ej hittas";
+            }else {
+                return "Ett fel inträffde. Statuskod: "+response.statusCode();
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,15 +83,6 @@ public class AnnonsHttpClient {
     public String skapaAnnons(int id, String topic, int phonenumber, String description, int price){
 
         try{
-            // Valt att skapa "Body" som en String, fick inte rätt på obj mapper osv.
-           /* String annons = "{"
-                    +"\"id\":" + id +","
-                    +"\"topic\":" + topic+","
-                    +"\"description\":" + description + ","
-                    +"\"Name\":" + phonenumber+","
-                    +"\"price\":" + price
-                    +"}"; */
-
             Annons annons = new Annons();
             annons.setId(id);
             annons.setTopic(topic);
@@ -103,8 +108,11 @@ public class AnnonsHttpClient {
                     request,
                     HttpResponse.BodyHandlers.ofString()
             );
-            // få med status kod? 200 osv..
-            return "Annons skapad";
+                if(response.statusCode()==200){
+                    return "Annons skapad!";
+                } else {
+                    return "Ett fel inträffade. Statuskod: "+response.statusCode();
+                }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -155,8 +163,13 @@ public class AnnonsHttpClient {
                     putRequest,
                     HttpResponse.BodyHandlers.ofString()
             );
-
-            return "Pris uppdaterad";
+            if (response.statusCode()==200){
+                return "Pris uppdaterad";
+            } else if (response.statusCode()==404) {
+                return "Annons med angivet id kan ej hittas.";
+            }else {
+                return "Ett fel inträffade. Statuskod: "+response.statusCode();
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
