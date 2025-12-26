@@ -9,9 +9,9 @@ public class App {
         System.out.println("""
                 1. Lista alla annonser
                 2. Visa annons
-                3. Skapa annons
-                4. Ändra pris
-                5. Radera annons
+                3. Skapa en ny annons
+                4. Ändra pris på en annons
+                5. Radera en annons
                 """);
 
         System.out.println("Val: ");
@@ -40,13 +40,16 @@ public class App {
                 System.out.println("Ämne/kategori: ");
                 String topic = input.nextLine();
 
+                System.out.println("Telefonnummer: ");
+                int phonenumber= input.nextInt();
+
                 System.out.println("Beskrvning av produkt: ");
                 String description = input.nextLine();
 
                 System.out.println("Pris: ");
                 int price = input.nextInt();
 
-                String skickaData = client.skapaAnnons(newId, topic, description, price);
+                String skickaData = client.skapaAnnons(newId, topic, phonenumber, description, price);
                 System.out.println(skickaData);
                 break;
             case 4:

@@ -66,7 +66,7 @@ public class AnnonsHttpClient {
     }
 
     //Menyval 3.
-    public String skapaAnnons(int id, String topic, String description, int price){
+    public String skapaAnnons(int id, String topic, int phonenumber, String description, int price){
 
         try{
             // Valt att skapa "Body" som en String, fick inte rätt på obj mapper osv.
@@ -74,6 +74,7 @@ public class AnnonsHttpClient {
                     +"\"id\":" + id +","
                     +"\"topic\":" + topic+","
                     +"\"description\":" + description + ","
+                    +"\"Name\":" + phonenumber+","
                     +"\"price\":" + price
                     +"}";
 

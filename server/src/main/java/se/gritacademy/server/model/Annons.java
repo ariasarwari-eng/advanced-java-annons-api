@@ -6,6 +6,7 @@ public class Annons {
     // Definiera alla variabler som en annons kräver, välj lämpliga namn, allt på eng? privata variabler!
     private Integer id;
     private String topic; //ämnesrad på eng?
+    private Integer phonenumber;
     private String description;
     private Integer price;
 
@@ -13,9 +14,10 @@ public class Annons {
     public Annons (){}
 
     // Kontruktor med parametrar, this- parametrar som skickas in att ska sättas som variabler.
-    public Annons ( Integer id, String topic, String description, Integer price){
+    public Annons ( Integer id, String topic, Integer phonenumber, String description, Integer price){
         this.id = id;
         this.topic = topic;
+        this.phonenumber=phonenumber;
         this.description = description;
         this.price = price;
     }
@@ -51,5 +53,12 @@ public class Annons {
 
     public void setTopic(String topic) {
         this.topic = topic;
+    }
+    public Integer getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(Integer phonenumber) {
+        this.phonenumber = phonenumber;
     }
 }
