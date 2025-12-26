@@ -2,7 +2,6 @@ package se.gritacademy;
 
 
 import se.gritacademy.server.model.Annons;
-import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
 
 import java.net.URI;
@@ -10,34 +9,33 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AnnonsHttpClient {
 
 
-        // 1. HttpClient, fick göra den private static, kunde ej använda client i resten av metoderna?
-        private static HttpClient client = HttpClient.newBuilder() // återanvänd client i varje metod
+        // 1. HttpClient, fick göra den private static då jag ej kunde använda client i resten av metoderna.
+        private static HttpClient client = HttpClient.newBuilder() // Återanvänder client i varje metod.
                 .version(HttpClient.Version.HTTP_1_1)
-                .connectTimeout(Duration.ofSeconds(10))
+                .connectTimeout(Duration.ofSeconds(10)) // max 10sek timeout
                 .build();
 
-
-    public static String listaAllaAnnonser(){ // metod för menyval 1
+    //Menyval 1.
+    public static String listaAllaAnnonser(){
         try {
 
             //2. request
+            // Skapar en förfrågan på alla annonser som finns.
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("http://localhost:8080/api/annons"))
                     .GET()
                     .build();
 
             //3. response
-            HttpResponse <String> response = client.send(
+            //Skickar förfrågan, omvandlar sedan svaret från json till String
+            HttpResponse <String> response = client.send( // viktigt att <String> finns med då länken är en String.
                     request,
                     HttpResponse.BodyHandlers.ofString()
             );
-
             return response.body();
 
         } catch (Exception e) {
@@ -46,10 +44,10 @@ public class AnnonsHttpClient {
         }
     }
 
-    public static String visaAnnons (int id){ // måste den även vara integer här? krockar det nåstans?
+    //Menyval 2.
+    public static String visaAnnons (int id){
         try{
-            //2. request medn ändrad URI för att kunna hitta en specifik annons
-            // i övrigt samma som ovan.
+            //2. Request som tidigare men med ändrad URI för att kunna hitta en specifik annons.
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("http://localhost:8080/api/annons/"+id))
                     .GET()
@@ -67,10 +65,11 @@ public class AnnonsHttpClient {
         }
     }
 
+    //Menyval 3.
     public String skapaAnnons(int id, String topic, String description, int price){
 
         try{
-            // skapa body? här och ta in info från tangentbborf i main? måste ha samma format som i postman?
+            // Valt att skapa "Body" som en String, fick inte rätt på obj mapper osv.
             String nyAnnons = "{"
                     +"\"id\":" + id +","
                     +"\"topic\":" + topic+","
@@ -78,59 +77,65 @@ public class AnnonsHttpClient {
                     +"\"price\":" + price
                     +"}";
 
-            // 2. request, byt ut Get moy post?
+            // 2. request, bytt ut GET mot POST för att skicka data och skapa en ny annons.
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("http://localhost:8080/api/annons"))
-                    .POST(HttpRequest.BodyPublishers.ofString(nyAnnons)) // skicka data här, nyAnnon. HttpRequest.BodyPublishers, istället för handlers,klassen skapar innehållet, body
+                    .POST(HttpRequest.BodyPublishers.ofString(nyAnnons)) // Skickar data här->nyAnnons.
+                    //HttpRequest.BodyPublishers -> istället för handlers, klassen skapar innehållet,body.
                     .build();
 
 
-            //3. respons, vanlig som tidigare?
+            //3. Respons
             HttpResponse <String> response = client.send(
                     request,
                     HttpResponse.BodyHandlers.ofString()
             );
-
             // få med status kod? 200 osv..
             return "Annons skapad";
-            // var skickar jag med all info till annonsen?
+
         } catch (Exception e) {
             e.printStackTrace();
             return "Fel vid skapa annons.";
         }
     }
 
+    //Menyval 4.
     public String changePrice (int id, int price){
 
         try{
-            // vanlig get request
+            // Request med GET för att hämta info för den specifika annonsen.
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("http://localhost:8080/api/annons/"+id))
                     .GET()
                     .build();
 
+            // Respons
             HttpResponse<String> response = client.send(
                     request,
                     HttpResponse.BodyHandlers.ofString()
             );
 
+            // Skapar Jackon Object mapper
             ObjectMapper mapper = new ObjectMapper();
+            // Skapar Annons objekt
             Annons annons = mapper.readValue(
-                    response.body(),
-                    Annons.class
+                    response.body(), // json datan läses
+                    Annons.class // mappar json fält till klassens attribut.
             );
+            // Jag sparar respons/svaret i ett objekt.
 
-            // ända pris med set?
+            // Ändrar priset på objektet med set.
             annons.setPrice(price);
 
             // annons -> json
+            // Omvandlar objektet annons till json
             String uppdateradAnnons = mapper.writeValueAsString(annons);
 
             // put request, put används för att uppdatera.
             HttpRequest putRequest = HttpRequest.newBuilder()
                     .uri(URI.create("http://localhost:8080/api/annons/"+id))
-                    .header("Content-Type", "application/json")
-                    .PUT(HttpRequest.BodyPublishers.ofString(uppdateradAnnons))
+                    .header("Content-Type", "application/json") // tala om för server att innhållet är i json format.
+                    .PUT(HttpRequest.BodyPublishers.ofString(uppdateradAnnons))// skickar med data i rätt format med publisher metoden.
                     .build();
 
             HttpResponse <String> putResponse = client.send(

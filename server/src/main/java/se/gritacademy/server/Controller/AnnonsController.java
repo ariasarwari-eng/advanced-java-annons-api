@@ -1,41 +1,44 @@
 package se.gritacademy.server.Controller;
 
-import org.springframework.web.bind.annotation.*; // ändrade till * från restcontroller
+import org.springframework.web.bind.annotation.*; // Ändrade till * från restcontroller.
 import se.gritacademy.server.database.AnnonsDatabase;
 import se.gritacademy.server.model.Annons;
 
 import java.util.List;
 
-@RestController // klassen är en SpringBoot Restcontroller. Klassen ska ta emot HTTP anrop (GET osv) sedan kunna skicka tbx data som JSON?
-@RequestMapping("/api/annons") // ska den sluta med /? "grund-URL"
+// Markerar klassen som en SpringBoot Restcontroller. Klassen ska ta emot HTTP anrop (GET osv) sedan kunna skicka tbx data som JSON.
+@RestController
+
+@RequestMapping("/api/annons") //grund-URL
 public class AnnonsController {
     // REST-API
 
     @GetMapping
-    // ett HTTP GET anrop - ska returnera alla annonser från databasen.
-    public List<Annons> getAnnons(){
-        return AnnonsDatabase.getInstance().getAnnons(); // använder den ensa instansen som finns till databasen
+    // Ett HTTP GET anrop - ska returnera alla annonser från databasen.
+    public List<Annons> getAnnons(){ // En lista bestående av Annons objekt.
+        return AnnonsDatabase.getInstance().getAnnons(); // Använder den enda instansen som finns till databasen.
     }
 
-    @GetMapping("{id}") // get en specifik annons genom identifiering av id. Skicka in id via URL
+    @GetMapping("{id}") // GET en specifik annons genom identifiering av id. Skickar in id via URL.
     public Annons getAnnons (@PathVariable Integer id){ // (tar värdet från URL här)
-        for (Annons annons : AnnonsDatabase.getInstance().getAnnons()){
+        for (Annons annons : AnnonsDatabase.getInstance().getAnnons()){ // Loopar igenom objekten i listan.
 
-            if (annons.getId() == id){
-                return annons;
+            if (annons.getId() == id){ // jämför id på objektet med det angivna id i URL.
+                return annons; // Returnerar det objekt som matchar.
             }
         }
-        return null; //om inget matchar.
+        return null; //Om inget matchar.
     }
 
-    @PostMapping // metoden ska köras id ett HTTP anrop POST
-    public void addAnnons (@RequestBody Annons annons){ //@requestBody tar body oxh gör om till ett annons obj
+    @PostMapping // Metoden ska köras vid ett Post anrop.
+    public void addAnnons (@RequestBody Annons annons){ //@requestBody tar body och gör om till ett annons objekt.
         AnnonsDatabase.getInstance().addAnnons(annons); // lägger till objektet i listan.
     }
 
-    @PutMapping ("{id}") // identifiera med id för att kunna uppdatera detta objekt
-    public void updateAnnons (@RequestBody Annons annons, @PathVariable Integer id) { // req hämtar ny data från body, path hämtar id från url
-        List <Annons> annonser = AnnonsDatabase.getInstance().getAnnons(); // hämtar hela listan fårn databasen med samma instans
+    @PutMapping ("{id}") // Identifiera med id för att kunna uppdatera ett objekt.
+    // requestBody hämtar ny data från body, path hämtar id från url
+    public void updateAnnons (@RequestBody Annons annons, @PathVariable Integer id) {
+        List <Annons> annonser = AnnonsDatabase.getInstance().getAnnons(); // hämtar hela listan från databasen med samma instans
 
         for (int i = 0 ; i< annonser.size() ; i++){ // loopar igenom listan mha index
             Annons a = annonser.get(i); // hämtar annonens med index i

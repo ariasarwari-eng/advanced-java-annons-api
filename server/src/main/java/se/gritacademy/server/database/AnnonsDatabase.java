@@ -8,24 +8,26 @@ import java.util.List;
 public class AnnonsDatabase {
     // ska skrivas efter singelton mönstret
 
-    private static AnnonsDatabase instance; // variabelnamnet instance enligt singelton? kan endast användas i denna klass? Vi vill att endast ett objekt av denna typ existerar.
+    // Variabelnamnet instance enligt singelton. Vi vill att endast ett objekt av denna typ existerar.
+    private static AnnonsDatabase instance;
 
-    private List<Annons> annonser = new ArrayList<>(); // lista för att spara annonserna i när programmet körs.
+    // Lista för att spara annonserna som objekt när programmet körs.
+    private List<Annons> annonser = new ArrayList<>();
 
     // privat konstruktor
     private AnnonsDatabase (){}
 
-    //metod som skapar ett enda objekt, samma objekt returneras varje gågn denna metod anropas.
-    //´nu måste den vara public för att kunna anropas fårn andra klasser, static funktion, anropa utan att skapa obj??
-   // syfte att ha endast en intsans i hel mitt programm.
+    //Metod som skapar ett enda objekt, samma objekt returneras varje gång denna metod anropas.
+    //Måste vara public för att kunna anropas från andra klasser. static funktion, anropa utan att skapa obj?
+   // Syfte att ha endast en instans i hel mitt program.
     public static AnnonsDatabase getInstance(){ // metod namnet följer singelton mönstret
-        if (instance==null){ // kontrollera om det redan finns en instans?
-            instance = new AnnonsDatabase(); // om inte, skapa en
+        if (instance==null){ // Kontrollerar om det redan finns en instans.
+            instance = new AnnonsDatabase(); // Om inte, skapas en.
         }
         return instance;
     }
 
-    // metod för att lägga till annons obj i listan.
+    //Metod för att lägga till annons obj i listan.
     public void addAnnons (Annons annons) {
         annonser.add(annons);
     }

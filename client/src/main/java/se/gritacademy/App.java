@@ -55,10 +55,17 @@ public class App {
 
                 System.out.println("Ange det nya priset: ");
                 int newPrice = input.nextInt();
+
+                String changePrice = client.changePrice(idPriceChange, newPrice);
+                System.out.println(changePrice);
                 break;
             case 5:
                 System.out.println("Ange id på annonsen du vill radera: ");
                 int idRadera = input.nextInt();
+
+                String raderaAnnons = client.deleteAnnons(idRadera);
+                System.out.println(raderaAnnons);
+                break;
             default : System.out.println("Ogilitgt val");
         }
 

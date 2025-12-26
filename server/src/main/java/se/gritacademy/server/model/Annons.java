@@ -3,16 +3,16 @@ package se.gritacademy.server.model;
 public class Annons {
 // POJO ska beskriva hur jag vill att annonsen ser ut
 
-    // definiera alla variabler som en annons kräver, välj lämpliga namn, allt på eng? privata variabler!
+    // Definiera alla variabler som en annons kräver, välj lämpliga namn, allt på eng? privata variabler!
     private Integer id;
     private String topic; //ämnesrad på eng?
     private String description;
     private Integer price;
 
-    // en tom konstruktor, krävs av Spring när detta objekt skapas från JSON?
+    // en tom konstruktor, krävs av Spring när detta objekt skapas från JSON.
     public Annons (){}
 
-    // kontruktor med parametrar, this- parametrar som skickas in att ska sättas som variabler
+    // Kontruktor med parametrar, this- parametrar som skickas in att ska sättas som variabler.
     public Annons ( Integer id, String topic, String description, Integer price){
         this.id = id;
         this.topic = topic;
