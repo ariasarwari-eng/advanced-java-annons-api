@@ -36,12 +36,14 @@ public class App {
             case 3:
                 System.out.println("Ange id: ");
                 int newId = input.nextInt();
+                input.nextLine(); // koden kraschade mellan nextInt och nextLine. Denna extra kod rad löste det.
 
                 System.out.println("Ämne/kategori: ");
                 String topic = input.nextLine();
 
                 System.out.println("Telefonnummer: ");
                 int phonenumber= input.nextInt();
+                input.nextLine(); // koden kraschade mellan nextInt och nextLine. Denna extra kod rad löste det.
 
                 System.out.println("Beskrvning av produkt: ");
                 String description = input.nextLine();

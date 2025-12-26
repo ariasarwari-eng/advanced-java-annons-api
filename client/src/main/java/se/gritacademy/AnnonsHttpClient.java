@@ -70,18 +70,30 @@ public class AnnonsHttpClient {
 
         try{
             // Valt att skapa "Body" som en String, fick inte rätt på obj mapper osv.
-            String nyAnnons = "{"
+           /* String annons = "{"
                     +"\"id\":" + id +","
                     +"\"topic\":" + topic+","
                     +"\"description\":" + description + ","
                     +"\"Name\":" + phonenumber+","
                     +"\"price\":" + price
-                    +"}";
+                    +"}"; */
+
+            Annons annons = new Annons();
+            annons.setId(id);
+            annons.setTopic(topic);
+            annons.setPhonenumber(phonenumber);
+            annons.setDescription(description);
+            annons.setPrice(price);
+
+            //omvandla obj till json
+            ObjectMapper mapper= new ObjectMapper();
+            String nyAnnons = mapper.writeValueAsString(annons);
 
             // 2. request, bytt ut GET mot POST för att skicka data och skapa en ny annons.
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("http://localhost:8080/api/annons"))
-                    .POST(HttpRequest.BodyPublishers.ofString(nyAnnons)) // Skickar data här->nyAnnons.
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(nyAnnons)) // Skickar data här->annons.
                     //HttpRequest.BodyPublishers -> istället för handlers, klassen skapar innehållet,body.
                     .build();
 
