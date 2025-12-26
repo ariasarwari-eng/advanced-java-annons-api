@@ -20,7 +20,7 @@ public class AnnonsHttpClient {
                 .build();
 
     //Menyval 1.
-    public static String listaAllaAnnonser(){
+    public String listaAllaAnnonser(){
         try {
 
             //2. request
@@ -53,7 +53,7 @@ public class AnnonsHttpClient {
     }
 
     //Menyval 2.
-    public static String visaAnnons (int id){
+    public  String visaAnnons (int id){
         try{
             //2. Request som tidigare men med ändrad URI för att kunna hitta en specifik annons.
             HttpRequest request = HttpRequest.newBuilder()
